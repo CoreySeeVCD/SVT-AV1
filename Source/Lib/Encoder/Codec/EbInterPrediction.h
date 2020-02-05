@@ -1,7 +1,5 @@
-/*
-* Copyright(c) 2019 Intel Corporation
-* SPDX - License - Identifier: BSD - 2 - Clause - Patent
-*/
+/*!< Copyright(c) 2019 Intel Corporation
+ * SPDX - License - Identifier: BSD - 2 - Clause - Patent */
 
 #ifndef EbInterPrediction_h
 #define EbInterPrediction_h
@@ -39,7 +37,14 @@ extern "C" {
         int32_t subpel_x;
         int32_t subpel_y;
     } SubpelParams;
-
+#if MC_DYNAMIC_PAD
+    typedef struct PadBlock {
+        int x0;
+        int x1;
+        int y0;
+        int y1;
+    } PadBlock;
+#endif
     struct ModeDecisionContext;
 
     typedef struct InterPredictionContext {
@@ -57,77 +62,10 @@ extern "C" {
         const ScaleFactors *sf, int32_t w, int32_t h, ConvolveParams *conv_params,
         InterpFilters interp_filters, int32_t is_intrabc, int32_t bd);
 
-typedef EbErrorType(*EbAv1InterPredictionFuncPtr)(
-    PictureControlSet              *pcs_ptr,
-    uint32_t                        interp_filters,
-    BlkStruct                     *blk_ptr,
-    uint8_t                         ref_frame_type,
-    MvUnit                         *mv_unit,
-    uint8_t                         use_intrabc,
-    MotionMode                      motion_mode,
-    uint8_t                         use_precomputed_obmc,
-    struct ModeDecisionContext     *md_context,
-    uint8_t                         compound_idx,
-    InterInterCompoundData         *interinter_comp,
-    TileInfo                       * tile,
-    NeighborArrayUnit              *luma_recon_neighbor_array,
-    NeighborArrayUnit              *cb_recon_neighbor_array ,
-    NeighborArrayUnit              *cr_recon_neighbor_array ,
-    uint8_t                         is_interintra_used ,
-    InterIntraMode                 interintra_mode,
-    uint8_t                         use_wedge_interintra,
-    int32_t                         interintra_wedge_index,
-    uint16_t                        pu_origin_x,
-    uint16_t                        pu_origin_y,
-    uint8_t                         bwidth,
-    uint8_t                         bheight,
-    EbPictureBufferDesc             *ref_pic_list0,
-    EbPictureBufferDesc             *ref_pic_list1,
-    EbPictureBufferDesc             *prediction_ptr,
-    uint16_t                        dst_origin_x,
-    uint16_t                        dst_origin_y,
-    EbBool                          perform_chroma,
-    uint8_t                         bit_depth);
-
-
-
     EbErrorType av1_inter_prediction(
     PictureControlSet              *pcs_ptr,
     uint32_t                        interp_filters,
-    BlkStruct                     *blk_ptr,
-    uint8_t                         ref_frame_type,
-    MvUnit                         *mv_unit,
-    uint8_t                         use_intrabc,
-    MotionMode                      motion_mode,
-    uint8_t                         use_precomputed_obmc,
-    struct ModeDecisionContext     *md_context,
-    uint8_t                         compound_idx,
-    InterInterCompoundData         *interinter_comp,
-    TileInfo                       * tile,
-    NeighborArrayUnit              *luma_recon_neighbor_array,
-    NeighborArrayUnit              *cb_recon_neighbor_array ,
-    NeighborArrayUnit              *cr_recon_neighbor_array ,
-    uint8_t                         is_interintra_used ,
-    InterIntraMode                 interintra_mode,
-    uint8_t                         use_wedge_interintra,
-    int32_t                         interintra_wedge_index,
-    uint16_t                        pu_origin_x,
-    uint16_t                        pu_origin_y,
-    uint8_t                         bwidth,
-    uint8_t                         bheight,
-    EbPictureBufferDesc             *ref_pic_list0,
-    EbPictureBufferDesc             *ref_pic_list1,
-    EbPictureBufferDesc             *prediction_ptr,
-    uint16_t                        dst_origin_x,
-    uint16_t                        dst_origin_y,
-    EbBool                          perform_chroma,
-    uint8_t                         bit_depth);
-
-
-EbErrorType av1_inter_prediction_hbd(
-    PictureControlSet              *pcs_ptr,
-    uint32_t                        interp_filters,
-    BlkStruct                     *blk_ptr,
+    BlkStruct                      *blk_ptr,
     uint8_t                         ref_frame_type,
     MvUnit                         *mv_unit,
     uint8_t                         use_intrabc,
@@ -183,7 +121,7 @@ EbErrorType av1_inter_prediction_hbd(
         InterpFilterParams *params_x, InterpFilterParams *params_y,
         int32_t w, int32_t h);
 
-    /* Mapping of interintra to intra mode for use in the intra component */
+    /*!< Mapping of interintra to intra mode for use in the intra component */
     static const PredictionMode interintra_to_intra_mode[INTERINTRA_MODES] = {
       DC_PRED, V_PRED, H_PRED, SMOOTH_PRED
     };
@@ -252,8 +190,8 @@ EbErrorType av1_inter_prediction_hbd(
         uint8_t                               bit_depth,
         EbBool                                perform_chroma);
 
-    extern aom_highbd_convolve_fn_t convolve_hbd[/*sub_x*/2][/*sub_y*/2][/*bi*/2];
-    extern AomConvolveFn convolve[/*sub_x*/2][/*sub_y*/2][/*bi*/2];
+    extern aom_highbd_convolve_fn_t convolve_hbd[/*!< sub_x */2][/*!< sub_y */2][/*!< bi */2];
+    extern AomConvolveFn convolve[/*!< sub_x */2][/*!< sub_y */2][/*!< bi */2];
 
 #ifdef __cplusplus
 }
