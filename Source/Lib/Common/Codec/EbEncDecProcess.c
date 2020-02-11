@@ -3052,6 +3052,11 @@ void derive_start_end_depth(
         *e_depth = 1;
     else
         *e_depth = 0;
+
+#if 1
+    *s_depth = MAX(*s_depth, -1);
+    *e_depth = MIN(*e_depth, +1);
+#endif
 }
 
 static void perform_pred_depth_refinement(
