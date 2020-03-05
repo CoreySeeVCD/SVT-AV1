@@ -10553,8 +10553,8 @@ void prune_references(
                     pcs_ptr->counter1000[1]++;
                     //printf("the count[1] is:%lu \n", pcs_ptr->counter1000[1]);
                 }
-                if(context_ptr->hme_results[li][ri].hme_sad < ULONG_MAX)
-                    printf("%"PRId64" \n", context_ptr->hme_results[li][ri].hme_sad);
+                //if(context_ptr->hme_results[li][ri].hme_sad < ULONG_MAX)
+                printf("This is the hme_sad %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sad);
 
                 //printf("value of counter: %u \n", pcs_ptr->counter1000);
             }
