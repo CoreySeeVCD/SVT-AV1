@@ -10541,12 +10541,13 @@ void prune_references(
             if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100  > BIGGER_THAN_TH*best)
                 context_ptr->hme_results[li][ri].do_ref = 0;
 #if OFF_REDUCE_SR_TH
-            if (context_ptr->hme_results[li][ri].hme_sad >= 0) //sad is always positive, want to always print out
+            if (context_ptr->hme_results[li][ri].hme_sad >= 0) { //sad is always positive, want to always print out
                 //now we check if we can call from pcs_ptr and add a counter from there;
                 pcs_ptr->counter1000++;
-                printf("the count is:%u", pcs_ptr->counter1000);
+                printf("the count is:%lu", pcs_ptr->counter1000);
+            }
                 //printf("value of hme_results in d: %d \n", context_ptr->hme_results[li][ri].hme_sad);
-                //printf("value of hme_results in u: %u \n", context_ptr->hme_results[li][ri].hme_sad);
+                //printf("value of hme_results in u: %lu \n", context_ptr->hme_results[li][ri].hme_sad);
 #else
             if (context_ptr->hme_results[li][ri].hme_sad < REDUCE_SR_TH)
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
@@ -10649,7 +10650,7 @@ EbErrorType motion_estimate_sb(
     // prune the refrence frames based on the HME outputs.
     if (pcs_ptr->prune_ref_based_me && prune_ref)
         prune_references(
-            context_ptr);
+            context_ptr, pcs_ptr);
     else if (pcs_ptr->sc_content_detected && prune_ref)
         prune_references_sc(
             context_ptr);
