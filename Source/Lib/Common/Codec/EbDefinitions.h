@@ -63,6 +63,8 @@ extern "C" {
 #define H_PEL_SEARCH_WIND_2 2  // 1/2-pel serach window 2
 #define HP_REF_OPT 1 // Remove redundant positions.
 
+#define OFF_REDUCE_SR_TH   1 //This is to turn off threshold for pcs-ptr
+
 #define ENABLE_PME_SAD 0
 #define SWITCH_XY_LOOPS_PME_SAD_SSD 0
 #if SWITCH_XY_LOOPS_PME_SAD_SSD

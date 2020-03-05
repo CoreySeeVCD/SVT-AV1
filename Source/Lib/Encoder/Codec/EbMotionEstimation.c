@@ -10539,8 +10539,14 @@ void prune_references(
         for (uint32_t ri = 0; ri < REF_LIST_MAX_DEPTH; ri++){
             if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100  > BIGGER_THAN_TH*best)
                 context_ptr->hme_results[li][ri].do_ref = 0;
+#if OFF_REDUCE_SR_TH
+            if (context_ptr->hme_results[li][ri].hme_sad >= 0) //sad is always positive, want to always print out
+                printf("value of hme_results: %c \n", context_ptr->hme_results[li][ri].hme_sad);
+#else
             if (context_ptr->hme_results[li][ri].hme_sad < REDUCE_SR_TH)
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
+#endif
+
             if (context_ptr->hme_results[li][ri].hme_sc_x <= displacement_th && context_ptr->hme_results[li][ri].hme_sc_y <= displacement_th && context_ptr->hme_results[li][ri].hme_sad < (2*REDUCE_SR_TH))
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
         }
