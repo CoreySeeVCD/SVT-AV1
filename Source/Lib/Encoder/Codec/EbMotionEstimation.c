@@ -24,6 +24,7 @@
 
 #include "EbLog.h"
 #include "inttypes.h"
+#include "limits.h"
 
 #define AVCCODEL
 /********************************************
@@ -10552,7 +10553,8 @@ void prune_references(
                     pcs_ptr->counter1000[1]++;
                     //printf("the count[1] is:%lu \n", pcs_ptr->counter1000[1]);
                 }
-                printf("%"PRId64" \n", context_ptr->hme_results[li][ri].hme_sad);
+                if(context_ptr->hme_results[li][ri].hme_sad < ULONG_MAX)
+                    printf("%"PRId64" \n", context_ptr->hme_results[li][ri].hme_sad);
 
                 //printf("value of counter: %u \n", pcs_ptr->counter1000);
             }
