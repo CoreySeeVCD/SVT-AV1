@@ -10515,7 +10515,8 @@ void hme_sb(
     }
 }
 void prune_references(
-    MeContext                 *context_ptr)
+    MeContext                 *context_ptr,
+    PictureParentControlSet *pcs_ptr )
 {
     HmeResults    sorted[MAX_NUM_OF_REF_PIC_LIST][REF_LIST_MAX_DEPTH];
     uint32_t      num_of_cand_to_sort = MAX_NUM_OF_REF_PIC_LIST * REF_LIST_MAX_DEPTH;
@@ -10541,8 +10542,11 @@ void prune_references(
                 context_ptr->hme_results[li][ri].do_ref = 0;
 #if OFF_REDUCE_SR_TH
             if (context_ptr->hme_results[li][ri].hme_sad >= 0) //sad is always positive, want to always print out
-                printf("value of hme_results in d: %d \n", context_ptr->hme_results[li][ri].hme_sad);
-                printf("value of hme_results in u: %u \n", context_ptr->hme_results[li][ri].hme_sad);
+                //now we check if we can call from pcs_ptr and add a counter from there;
+                pcs_ptr->counter1000++;
+                printf("the count is:%u", pcs_ptr->counter1000++);
+                //printf("value of hme_results in d: %d \n", context_ptr->hme_results[li][ri].hme_sad);
+                //printf("value of hme_results in u: %u \n", context_ptr->hme_results[li][ri].hme_sad);
 #else
             if (context_ptr->hme_results[li][ri].hme_sad < REDUCE_SR_TH)
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
