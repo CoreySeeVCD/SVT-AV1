@@ -10545,12 +10545,14 @@ void prune_references(
                 //now we check if we can call from pcs_ptr and add a counter from there;
                 if (context_ptr->hme_results[li][ri].hme_sad >= 1000 && context_ptr->hme_results[li][ri].hme_sad <= 2000) {
                     pcs_ptr->counter1000[0]++;
-                    printf("the count[0] is:%lu \n", pcs_ptr->counter1000[0]);
+                    //printf("the count[0] is:%lu \n", pcs_ptr->counter1000[0]);
                 }
                 else {
                     pcs_ptr->counter1000[1]++;
-                    printf("the count[1] is:%lu \n", pcs_ptr->counter1000[1]);
+                    //printf("the count[1] is:%lu \n", pcs_ptr->counter1000[1]);
                 }
+                printf("value of hme_results in lu: %lu \n", context_ptr->hme_results[li][ri].hme_sad);
+                printf("value of counter: %u \n", pcs_ptr->counter1000);
             }
                 //printf("value of hme_results in d: %d \n", context_ptr->hme_results[li][ri].hme_sad);
                 //printf("value of hme_results in u: %lu \n", context_ptr->hme_results[li][ri].hme_sad);
