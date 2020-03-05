@@ -10543,8 +10543,10 @@ void prune_references(
 #if OFF_REDUCE_SR_TH
             if (context_ptr->hme_results[li][ri].hme_sad >= 0) { //sad is always positive, want to always print out
                 //now we check if we can call from pcs_ptr and add a counter from there;
-                pcs_ptr->counter1000++;
-                printf("the count is:%lu \n", pcs_ptr->counter1000);
+                if (context_ptr->hme_results[li][ri].hme_sad >= 1000 && context_ptr->hme_results[li][ri].hme_sad <= 2000) {
+                    pcs_ptr->counter1000++;
+                    printf("the count is:%lu \n", pcs_ptr->counter1000);
+                }
             }
                 //printf("value of hme_results in d: %d \n", context_ptr->hme_results[li][ri].hme_sad);
                 //printf("value of hme_results in u: %lu \n", context_ptr->hme_results[li][ri].hme_sad);
