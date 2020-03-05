@@ -10585,7 +10585,7 @@ void prune_references(
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
 #endif
 #if OFF_displacement_th
-            printf("This is hme_sc_x: %d hme_sc_y: %d hme_sad: %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sc_x, context_ptr->hme_results[li][ri].hme_sc_y, context_ptr->hme_results[li][ri].hme_sad)
+            printf("This is hme_sc_x: %d hme_sc_y: %d hme_sad: %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sc_x, context_ptr->hme_results[li][ri].hme_sc_y, context_ptr->hme_results[li][ri].hme_sad);
 #else
             if (context_ptr->hme_results[li][ri].hme_sc_x <= displacement_th && context_ptr->hme_results[li][ri].hme_sc_y <= displacement_th && context_ptr->hme_results[li][ri].hme_sad < (2 * REDUCE_SR_TH))
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
