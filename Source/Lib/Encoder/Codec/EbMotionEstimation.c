@@ -10552,7 +10552,7 @@ void prune_references(
                     pcs_ptr->counter1000[1]++;
                     //printf("the count[1] is:%lu \n", pcs_ptr->counter1000[1]);
                 }
-                printf("value of hme_results in lu: %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sad);
+                printf("%"PRId64" \n", context_ptr->hme_results[li][ri].hme_sad);
 
                 //printf("value of counter: %u \n", pcs_ptr->counter1000);
             }
