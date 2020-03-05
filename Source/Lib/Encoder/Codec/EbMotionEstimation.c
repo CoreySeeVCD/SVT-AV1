@@ -10541,7 +10541,8 @@ void prune_references(
                 context_ptr->hme_results[li][ri].do_ref = 0;
 #if OFF_REDUCE_SR_TH
             if (context_ptr->hme_results[li][ri].hme_sad >= 0) //sad is always positive, want to always print out
-                printf("value of hme_results: %c \n", context_ptr->hme_results[li][ri].hme_sad);
+                printf("value of hme_results in d: %d \n", context_ptr->hme_results[li][ri].hme_sad);
+                printf("value of hme_results in u: %u \n", context_ptr->hme_results[li][ri].hme_sad);
 #else
             if (context_ptr->hme_results[li][ri].hme_sad < REDUCE_SR_TH)
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
