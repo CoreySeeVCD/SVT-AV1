@@ -63,7 +63,10 @@ extern "C" {
 #define H_PEL_SEARCH_WIND_2 2  // 1/2-pel serach window 2
 #define HP_REF_OPT 1 // Remove redundant positions.
 
-#define OFF_REDUCE_SR_TH   1 //This is to turn off threshold for pcs-ptr
+#define OFF_REDUCE_SR_TH   0 //This is to turn off threshold for pcs-ptr (in prune)
+#define OFF_BIGGER_THAN_TH 1 // this is to turn off Bigger than threshold for prune
+#define OFF_BIGGER_THAN_TH_FP 0 //this is the FULL PEL version of OFF_BIGGER_THAN_TH
+#define OFF_displacement_th 0 //This is the displacement threshold for prune
 
 #define ENABLE_PME_SAD 0
 #define SWITCH_XY_LOOPS_PME_SAD_SSD 0

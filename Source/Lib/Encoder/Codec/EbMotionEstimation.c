@@ -9991,8 +9991,18 @@ void prune_references_fp(
     for (uint32_t li = 0; li < MAX_NUM_OF_REF_PIC_LIST; li++) {
         for (uint32_t ri = 0; ri < REF_LIST_MAX_DEPTH; ri++){
            // uint32_t dev = ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best;
-            if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100  > BIGGER_THAN_TH*best)
+#if OFF_BIGGER_THAN_TH_FP
+            if (best > 0) {
+                printf("This is the hme_sad %"PRId64" \n", ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best);
+        }
+            else {
+                printf("This is the hme_sad %"PRId64" \n", MAX_SAD_VALUE);
+            }
+#else
+            if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100 > BIGGER_THAN_TH*best)
                 context_ptr->hme_results[li][ri].do_ref = 0;
+#endif
+
             if (context_ptr->half_pel_mode == SWITCHABLE_HP_MODE)
                 if (context_ptr->hme_results[li][ri].hme_sad > sorted[0][1].hme_sad)
                     context_ptr->local_hp_mode[li][ri] = REFINEMENT_HP_MODE;
@@ -10540,8 +10550,18 @@ void prune_references(
     int16_t  displacement_th = 4;
     for (uint32_t li = 0; li < MAX_NUM_OF_REF_PIC_LIST; li++) {
         for (uint32_t ri = 0; ri < REF_LIST_MAX_DEPTH; ri++){
-            if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100  > BIGGER_THAN_TH*best)
+#if OFF_BIGGER_THAN_TH
+            if (best > 0) {
+                printf("This is the hme_sad %"PRId64" \n", ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best);
+            }
+            else {
+                printf("This is the hme_sad %"PRId64" \n", MAX_SAD_VALUE);
+            }
+#else
+            if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100 > BIGGER_THAN_TH*best)
                 context_ptr->hme_results[li][ri].do_ref = 0;
+#endif
+
 #if OFF_REDUCE_SR_TH
             if (context_ptr->hme_results[li][ri].hme_sad >= 0) { //sad is always positive, want to always print out
                 //now we check if we can call from pcs_ptr and add a counter from there;
@@ -10564,9 +10584,13 @@ void prune_references(
             if (context_ptr->hme_results[li][ri].hme_sad < REDUCE_SR_TH)
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
 #endif
-
-            if (context_ptr->hme_results[li][ri].hme_sc_x <= displacement_th && context_ptr->hme_results[li][ri].hme_sc_y <= displacement_th && context_ptr->hme_results[li][ri].hme_sad < (2*REDUCE_SR_TH))
+#if OFF_displacement_th
+            printf("This is hme_sc_x: %d hme_sc_y: %d hme_sad: %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sc_x, context_ptr->hme_results[li][ri].hme_sc_y, context_ptr->hme_results[li][ri].hme_sad)
+#else
+            if (context_ptr->hme_results[li][ri].hme_sc_x <= displacement_th && context_ptr->hme_results[li][ri].hme_sc_y <= displacement_th && context_ptr->hme_results[li][ri].hme_sad < (2 * REDUCE_SR_TH))
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
+#endif
+
         }
     }
 }
