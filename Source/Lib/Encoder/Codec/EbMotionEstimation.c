@@ -23,6 +23,7 @@
 #include "EbLambdaRateTables.h"
 
 #include "EbLog.h"
+#include "inttypes.h"
 
 #define AVCCODEL
 /********************************************
@@ -10551,8 +10552,9 @@ void prune_references(
                     pcs_ptr->counter1000[1]++;
                     //printf("the count[1] is:%lu \n", pcs_ptr->counter1000[1]);
                 }
-                printf("value of hme_results in lu: %lu \n", context_ptr->hme_results[li][ri].hme_sad);
-                printf("value of counter: %u \n", pcs_ptr->counter1000);
+                printf("value of hme_results in lu: %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sad);
+
+                //printf("value of counter: %u \n", pcs_ptr->counter1000);
             }
                 //printf("value of hme_results in d: %d \n", context_ptr->hme_results[li][ri].hme_sad);
                 //printf("value of hme_results in u: %lu \n", context_ptr->hme_results[li][ri].hme_sad);
