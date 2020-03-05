@@ -751,7 +751,7 @@ typedef struct PictureParentControlSet {
 
     EbBool frame_superres_enabled;
     uint8_t prune_ref_based_me;
-    uint64_t counter1000;
+    uint16_t counter1000[2];
 } PictureParentControlSet;
 
 typedef struct PictureControlSetInitData {
