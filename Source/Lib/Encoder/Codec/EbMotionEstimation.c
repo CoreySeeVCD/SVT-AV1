@@ -10553,7 +10553,7 @@ void prune_references(
 #if OFF_BIGGER_THAN_TH
             if (best > 0 && best <= context_ptr->hme_results[li][ri].hme_sad) {
                 uint64_t ratio = ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best;
-                printf("OFF_BIGGER_THAN_TH ratio %"PRId64", numerator %"PRId64", denom %"PRId64" \n", ratio, (context_ptr->hme_results[li][ri].hme_sad - best), best);
+                printf("OFF_BIGGER_THAN_TH ratio %"PRIu64", numerator %"PRIu64", denom %"PRIu64" \n", ratio, (context_ptr->hme_results[li][ri].hme_sad - best), best);
             }
             else {
                 printf("MAX_VALUE OFF_BIGGER_THAN_TH hme_sad %"PRId64" \n", MAX_SAD_VALUE);
