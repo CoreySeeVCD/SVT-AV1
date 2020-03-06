@@ -10585,7 +10585,7 @@ void prune_references(
                     //printf("the count[1] is:%lu \n", pcs_ptr->counter1000[1]);
                 }
                 //if(context_ptr->hme_results[li][ri].hme_sad < ULONG_MAX)
-                printf("OFF_REDUCE_SR_TH hme_sad %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sad);
+                printf("OFF_REDUCE_SR_TH hme_sad %"PRIu64" \n", context_ptr->hme_results[li][ri].hme_sad);
 
                 //printf("value of counter: %u \n", pcs_ptr->counter1000);
             }
@@ -10597,7 +10597,7 @@ void prune_references(
 #endif
 #if OFF_displacement_th
             if (context_ptr->hme_results[li][ri].hme_sad < MAX_32_INT) {
-                printf("OFF_displacement_th hme_sc_x: %d hme_sc_y: %d hme_sad: %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sc_x, context_ptr->hme_results[li][ri].hme_sc_y, context_ptr->hme_results[li][ri].hme_sad);
+                printf("OFF_displacement_th hme_sc_x: %d hme_sc_y: %d hme_sad: %"PRIu64" \n", context_ptr->hme_results[li][ri].hme_sc_x, context_ptr->hme_results[li][ri].hme_sc_y, context_ptr->hme_results[li][ri].hme_sad);
             }
 #else
             if (context_ptr->hme_results[li][ri].hme_sc_x <= displacement_th && context_ptr->hme_results[li][ri].hme_sc_y <= displacement_th && context_ptr->hme_results[li][ri].hme_sad < (2 * REDUCE_SR_TH))
@@ -10610,9 +10610,14 @@ void prune_references(
 
 void prune_references_sc(
     MeContext *context_ptr)
-{
+{   
+    uint64_t MAX_32_INT = 4294967295;
     for (uint32_t li = 0; li < MAX_NUM_OF_REF_PIC_LIST; li++) {
         for (uint32_t ri = 0; ri < REF_LIST_MAX_DEPTH; ri++){
+#if OFF_SC_HME_TH_EASY
+            if (context_ptr->hme_results[li][ri].hme_sad < MAX_32_INT)
+                printf("SC_HME_TH_EASY hme_sad: %"PRIu64" \n", context_ptr->hme_results[li][ri].hme_sad);
+#else
             if (context_ptr->hme_results[li][ri].hme_sc_x == 0 &&
                 context_ptr->hme_results[li][ri].hme_sc_y == 0 &&
                 context_ptr->hme_results[li][ri].hme_sad < SC_HME_TH_EASY)
@@ -10621,6 +10626,8 @@ void prune_references_sc(
 
             else if (context_ptr->hme_results[li][ri].hme_sad < SC_HME_TH_EASY)
                 context_ptr->reduce_me_sr_flag[li][ri] = SC_HME_TH_EASY;
+#endif
+
         }
     }
 }
