@@ -64,7 +64,7 @@ extern "C" {
 #define HP_REF_OPT 1 // Remove redundant positions.
 
 #define OFF_REDUCE_SR_TH   0 //This is to turn off threshold for pcs-ptr (in prune)
-#define OFF_BIGGER_THAN_TH 0 // this is to turn off Bigger than threshold for prune
+#define OFF_BIGGER_THAN_TH 1 // this is to turn off Bigger than threshold for prune
 #define OFF_BIGGER_THAN_TH_FP 0 //this is the FULL PEL version of OFF_BIGGER_THAN_TH
 #define OFF_displacement_th 0 //This is the displacement threshold for prune
 
