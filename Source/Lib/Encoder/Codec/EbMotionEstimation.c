@@ -9987,16 +9987,21 @@ void prune_references_fp(
         }
     }
     uint8_t  BIGGER_THAN_TH = 30;
+    uint64_t MAX_32_INT = 4294967295;
     uint64_t best = sorted[0][0].hme_sad;//is this always the best?
     for (uint32_t li = 0; li < MAX_NUM_OF_REF_PIC_LIST; li++) {
         for (uint32_t ri = 0; ri < REF_LIST_MAX_DEPTH; ri++){
            // uint32_t dev = ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best;
 #if OFF_BIGGER_THAN_TH_FP
             if (best > 0 && best <= context_ptr->hme_results[li][ri].hme_sad) {
-                printf("OFF_BIGGER_THAN_TH_FP hme_sad %"PRId64" \n", ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best);
-        }
+                if (context_ptr->hme_results[li][ri].hme_sad < MAX_32_INT) {
+                    uint64_t ratio = ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best;
+                    printf("OFF_BIGGER_THAN_TH_FP hme_sad: %"PRIu64"\n", ratio);
+                }
+                //printf("OFF_BIGGER_THAN_TH_FP hme_sad %"PRIu64" \n", ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best);
+            }
             else {
-                printf("MAX_VALUE OFF_BIGGER_THAN_TH_FP hme_sad %"PRId64" \n", MAX_SAD_VALUE);
+                printf("MAX_VALUE OFF_BIGGER_THAN_TH_FP hme_sad %"PRIu64" \n", MAX_SAD_VALUE);
             }
 #else
             if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100 > BIGGER_THAN_TH*best)
@@ -10547,16 +10552,18 @@ void prune_references(
     uint8_t  BIGGER_THAN_TH = 80;
     uint64_t best = sorted[0][0].hme_sad;//is this always the best?
     uint64_t REDUCE_SR_TH = 6000;
+    uint64_t MAX_32_INT = 4294967295;
     int16_t  displacement_th = 4;
     for (uint32_t li = 0; li < MAX_NUM_OF_REF_PIC_LIST; li++) {
         for (uint32_t ri = 0; ri < REF_LIST_MAX_DEPTH; ri++){
 #if OFF_BIGGER_THAN_TH
             if (best > 0 && best <= context_ptr->hme_results[li][ri].hme_sad) {
-                uint64_t ratio = ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best;
-                if (context_ptr->hme_results[li][ri].hme_sad == 4294967295)
-                    printf("MAX VALUE\n");
-                else
-                    printf("OFF_BIGGER_THAN_TH %d, %u, %lu, %"PRIu64", %i\n", context_ptr->hme_results[li][ri].hme_sad, context_ptr->hme_results[li][ri].hme_sad, context_ptr->hme_results[li][ri].hme_sad, context_ptr->hme_results[li][ri].hme_sad, context_ptr->hme_results[li][ri].hme_sad);
+                if (context_ptr->hme_results[li][ri].hme_sad < MAX_32_INT) {
+                    uint64_t ratio = ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best;
+                    printf("OFF_BIGGER_THAN_TH hme_sad: %"PRIu64"\n", ratio);
+                }
+                //else
+                  //  printf("OFF_BIGGER_THAN_TH %d, %u, %lu, %"PRIu64", %i\n", context_ptr->hme_results[li][ri].hme_sad, context_ptr->hme_results[li][ri].hme_sad, context_ptr->hme_results[li][ri].hme_sad, context_ptr->hme_results[li][ri].hme_sad, context_ptr->hme_results[li][ri].hme_sad);
             }
             else {
                 printf("MAX_VALUE OFF_BIGGER_THAN_TH hme_sad %"PRIu64" \n", MAX_SAD_VALUE);
@@ -10589,7 +10596,9 @@ void prune_references(
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
 #endif
 #if OFF_displacement_th
-            printf("OFF_displacement_th hme_sc_x: %d hme_sc_y: %d hme_sad: %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sc_x, context_ptr->hme_results[li][ri].hme_sc_y, context_ptr->hme_results[li][ri].hme_sad);
+            if (context_ptr->hme_results[li][ri].hme_sad < MAX_32_INT) {
+                printf("OFF_displacement_th hme_sc_x: %d hme_sc_y: %d hme_sad: %"PRId64" \n", context_ptr->hme_results[li][ri].hme_sc_x, context_ptr->hme_results[li][ri].hme_sc_y, context_ptr->hme_results[li][ri].hme_sad);
+            }
 #else
             if (context_ptr->hme_results[li][ri].hme_sc_x <= displacement_th && context_ptr->hme_results[li][ri].hme_sc_y <= displacement_th && context_ptr->hme_results[li][ri].hme_sad < (2 * REDUCE_SR_TH))
                 context_ptr->reduce_me_sr_flag[li][ri] = 1;
