@@ -9996,7 +9996,7 @@ void prune_references_fp(
                 printf("OFF_BIGGER_THAN_TH_FP hme_sad %"PRId64" \n", ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best);
         }
             else {
-                printf("OFF_BIGGER_THAN_TH_FP hme_sad %"PRId64" \n", MAX_SAD_VALUE);
+                printf("MAX_VALUE OFF_BIGGER_THAN_TH_FP hme_sad %"PRId64" \n", MAX_SAD_VALUE);
             }
 #else
             if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100 > BIGGER_THAN_TH*best)
@@ -10555,7 +10555,7 @@ void prune_references(
                 printf("OFF_BIGGER_THAN_TH hme_sad %"PRId64" \n", ((context_ptr->hme_results[li][ri].hme_sad - best) * 100) / best);
             }
             else {
-                printf("OFF_BIGGER_THAN_TH hme_sad %"PRId64" \n", MAX_SAD_VALUE);
+                printf("MAX_VALUE OFF_BIGGER_THAN_TH hme_sad %"PRId64" \n", MAX_SAD_VALUE);
             }
 #else
             if ((context_ptr->hme_results[li][ri].hme_sad - best) * 100 > BIGGER_THAN_TH*best)
