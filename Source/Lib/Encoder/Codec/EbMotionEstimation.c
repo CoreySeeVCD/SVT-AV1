@@ -10610,7 +10610,7 @@ void prune_references(
 
 void prune_references_sc(
     MeContext *context_ptr)
-{   
+{
     uint64_t MAX_32_INT = 4294967295;
     for (uint32_t li = 0; li < MAX_NUM_OF_REF_PIC_LIST; li++) {
         for (uint32_t ri = 0; ri < REF_LIST_MAX_DEPTH; ri++){
