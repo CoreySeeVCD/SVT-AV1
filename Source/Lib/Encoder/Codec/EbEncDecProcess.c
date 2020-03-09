@@ -23,6 +23,7 @@
 #include "EbSvtAv1ErrorCodes.h"
 #include "EbUtility.h"
 #include "grainSynthesis.h"
+#include "inttypes.h"
 //To fix warning C4013: 'convert_16bit_to_8bit' undefined; assuming extern returning int
 #include "common_dsp_rtcd.h"
 #include "EbRateDistortionCost.h"
@@ -2498,18 +2499,28 @@ static void perform_pred_depth_refinement(SequenceControlSet *scs_ptr, PictureCo
                             pcs_ptr,
                             context_ptr,
                             sb_index);
-
+#if OFF_early_exit_th
+                        printf("OFF_early_exit_th - best_part_cost: %"PRIu64", width: %u, height: %u \n", best_part_cost, pcs_ptr->parent_pcs_ptr->sb_geom[sb_index].width, pcs_ptr->parent_pcs_ptr->sb_geom[sb_index].height);
+                        derive_start_end_depth(pcs_ptr,
+                                sb_ptr,
+                                scs_ptr->seq_header.sb_size,
+                                &s_depth,
+                                &e_depth,
+                                blk_geom);
+#else
                         if (best_part_cost < early_exit_th) {
                             s_depth = 0;
                             e_depth = 0;
                         }
                         else {
-                        derive_start_end_depth(pcs_ptr,
-                                               sb_ptr,
-                                               scs_ptr->seq_header.sb_size,
-                                               &s_depth,
-                                               &e_depth,
-                                               blk_geom);
+                            derive_start_end_depth(pcs_ptr,
+                                sb_ptr,
+                                scs_ptr->seq_header.sb_size,
+                                &s_depth,
+                                &e_depth,
+                                blk_geom);
+#endif
+
 
                         }
                     } else if (context_ptr->pd_pass == PD_PASS_1) {
