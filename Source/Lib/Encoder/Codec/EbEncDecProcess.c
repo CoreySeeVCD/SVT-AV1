@@ -2519,10 +2519,9 @@ static void perform_pred_depth_refinement(SequenceControlSet *scs_ptr, PictureCo
                                 &s_depth,
                                 &e_depth,
                                 blk_geom);
+                        }
 #endif
 
-
-                        }
                     } else if (context_ptr->pd_pass == PD_PASS_1) {
                         EbBool zero_coeff_present_flag = EB_FALSE;
 
