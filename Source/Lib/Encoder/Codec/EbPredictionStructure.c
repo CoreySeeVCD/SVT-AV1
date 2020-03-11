@@ -1992,11 +1992,11 @@ EbErrorType prediction_structure_group_ctor(PredictionStructureGroup *pred_struc
     pred_struct_group_ptr->dctor = prediction_structure_group_dctor;
     uint8_t ref_count_used;
     if (config->screen_content_mode == 1)
-        ref_count_used = MR_MODE ? MAX_REF_IDX : enc_mode <= ENC_M2 ? 2 : 1;
+        ref_count_used = MR_MODE ? MAX_REF_IDX : enc_mode <= ENC_M2 ? 2 : 2;
     else
 #if MAR4_M3_ADOPTIONS
 #if MAR10_ADOPTIONS
-        ref_count_used = enc_mode <= ENC_M3 ? MAX_REF_IDX : enc_mode <= ENC_M4 ? 2 : 1;
+        ref_count_used = enc_mode <= ENC_M3 ? MAX_REF_IDX : enc_mode <= ENC_M4 ? 2 : 2;
 #else
         ref_count_used = enc_mode <= ENC_M3 ? MAX_REF_IDX : 1;
 #endif
