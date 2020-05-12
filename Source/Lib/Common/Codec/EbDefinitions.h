@@ -392,6 +392,11 @@ extern "C" {
 #define CFL_OFF 0
 #define ICS_OFF 0
 
+//FBA
+#define SSSE_INTER_OFF 0
+#define SSSE_INTRA_OFF 0
+#define SSSE_OFF 0
+
 #endif
 // END  MAY2020 /////////////////////////////////////////////////////////
 

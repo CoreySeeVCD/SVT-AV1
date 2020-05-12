@@ -8364,6 +8364,17 @@ void md_stage_3(PictureControlSet *pcs_ptr, SuperBlock *sb_ptr, BlkStruct *blk_p
         context_ptr->md_staging_skip_rdoq = EB_TRUE;
 #endif
         context_ptr->md_staging_spatial_sse_full_loop = context_ptr->spatial_sse_full_loop;
+//FBA
+#if SSSE_INTER_OFF
+        context_ptr->md_staging_spatial_sse_full_loop = (candidate_ptr->cand_class == CAND_CLASS_0 || candidate_ptr->cand_class == CAND_CLASS_3) ? context_ptr->md_staging_spatial_sse_full_loop : EB_FALSE;
+#endif
+#if SSSE_INTRA_OFF
+        context_ptr->md_staging_spatial_sse_full_loop = (candidate_ptr->cand_class == CAND_CLASS_0 || candidate_ptr->cand_class == CAND_CLASS_3) ? EB_FALSE : context_ptr->md_staging_spatial_sse_full_loop;
+#endif
+#if SSSE_OFF
+        context_ptr->md_staging_spatial_sse_full_loop = EB_FALSE;
+#endif
+
 #if !M8_CLEAN_UP
         if (pcs_ptr->slice_type != I_SLICE) {
             if ((candidate_ptr->type == INTRA_MODE || context_ptr->full_loop_escape == 2) &&
