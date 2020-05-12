@@ -1750,6 +1750,26 @@ int32_t av1_quantize_inv_quantize(
     EbBool perform_rdoq = ((md_context->md_staging_skip_rdoq == EB_FALSE || is_encode_pass) &&
         md_context->enable_rdoq);
 
+#if DISABLE_RDOQ_IN_MD
+    perform_rdoq = is_encode_pass ? perform_rdoq : 0;
+#endif
+#if DISABLE_RDOQ_IN_MD_FOR_INTER
+    perform_rdoq = is_encode_pass || !is_inter ? perform_rdoq : 0;
+#endif
+#if DISABLE_RDOQ_IN_MD_FOR_INTRA
+    perform_rdoq = is_encode_pass || is_inter ? perform_rdoq : 0;
+#endif
+
+#if DISABLE_RDOQ_EVERYWHERE
+    perform_rdoq = 0;
+#endif
+#if DISABLE_RDOQ_IN_EVERYWHERE_FOR_INTER
+    perform_rdoq = !is_inter ? perform_rdoq : 0;
+#endif
+#if DISABLE_RDOQ_IN_EVERYWHERE_FOR_INTRA
+    perform_rdoq = is_inter ? perform_rdoq : 0;
+#endif
+
     SequenceControlSet *scs_ptr = (SequenceControlSet *)pcs_ptr->scs_wrapper_ptr->object_ptr;
     if (perform_rdoq) {
         if (bit_increment || (is_encode_pass && scs_ptr->static_config.encoder_16bit_pipeline)) {

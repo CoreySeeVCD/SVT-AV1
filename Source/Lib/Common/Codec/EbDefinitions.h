@@ -385,6 +385,12 @@ extern "C" {
 #define RDOQ_INTER_OFF 0
 #define RDOQ_INTRA_OFF 0
 #define RDOQ_OFF       0
+#define DISABLE_RDOQ_IN_MD 0 //Everything only in MD
+#define DISABLE_RDOQ_IN_MD_FOR_INTER 0 //Inter off in MD
+#define DISABLE_RDOQ_IN_MD_FOR_INTRA 0 //Intra off in MD
+#define DISABLE_RDOQ_EVERYWHERE 0
+#define DISABLE_RDOQ_IN_EVERYWHERE_FOR_INTER 0
+#define DISABLE_RDOQ_IN_EVERYWHERE_FOR_INTRA 0
 
 #define IFS_OFF         0
 #define IFS_WITH_CHROMA 0

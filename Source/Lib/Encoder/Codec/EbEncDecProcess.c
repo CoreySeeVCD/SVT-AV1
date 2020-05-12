@@ -3054,10 +3054,6 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
     else
         context_ptr->spatial_sse_full_loop =
         sequence_control_set_ptr->static_config.spatial_sse_fl;
-//FBA
-#if SSSE_OFF
-    context_ptr->spatial_sse_full_loop = EB_FALSE;
-#endif
 
     if (context_ptr->chroma_level <= CHROMA_MODE_1)
         context_ptr->blk_skip_decision = EB_TRUE;
@@ -3112,9 +3108,6 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
             context_ptr->enable_rdoq =
             sequence_control_set_ptr->static_config.enable_rdoq;
 
-#if RDOQ_OFF
-    context_ptr->enable_rdoq = EB_FALSE;
-#endif
     // Derive redundant block
     if (pd_pass == PD_PASS_0)
         context_ptr->redundant_blk = EB_FALSE;
