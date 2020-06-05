@@ -5478,8 +5478,8 @@ static int cqp_qindex_calc(
         active_best_quality =
             get_kf_active_quality_cqp(rc, active_worst_quality, bit_depth);
         // Allow somewhat lower kf minq with small image formats.
-        if ((cm->frm_size.frame_width * cm->frm_size.frame_height) <= (352 * 288))
-            q_adj_factor -= 0.25;
+        //if ((cm->frm_size.frame_width * cm->frm_size.frame_height) <= (352 * 288))
+            //q_adj_factor -= 0.25;
 
         // Convert the adjustment factor to a qindex delta
         // on active_best_quality.
