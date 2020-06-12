@@ -115,6 +115,7 @@
 #define SCREEN_CONTENT_TOKEN "-scm"
 // --- start: ALTREF_FILTERING_SUPPORT
 #define ENABLE_ALTREFS "-enable-altrefs"
+#define MRP_LEVELS2020 "-mrp-levels"
 #define ALTREF_STRENGTH "-altref-strength"
 #define ALTREF_NFRAMES "-altref-nframes"
 #define ENABLE_OVERLAYS "-enable-overlays"
@@ -553,6 +554,9 @@ static void set_screen_content_mode(const char *value, EbConfig *cfg) {
 // --- start: ALTREF_FILTERING_SUPPORT
 static void set_enable_altrefs(const char *value, EbConfig *cfg) {
     cfg->enable_altrefs = (EbBool)strtoul(value, NULL, 0);
+};
+static void set_mrp_levels2020(const char *value, EbConfig *cfg) {
+    cfg->mrp_level2020 = (EbBool)strtoul(value, NULL, 0);
 };
 static void set_altref_strength(const char *value, EbConfig *cfg) {
     cfg->altref_strength = (uint8_t)strtoul(value, NULL, 0);
@@ -1140,6 +1144,10 @@ ConfigEntry config_entry_specific[] = {
       "Enable automatic alt reference frames(0: OFF, 1: ON[default])",
       set_enable_altrefs},
      {SINGLE_INPUT,
+      MRP_LEVELS2020,
+      "set mrp levels (0: OFF, 1: ON[default])",
+      set_mrp_levels2020 },
+     {SINGLE_INPUT,
       ALTREF_STRENGTH,
       "AltRef filter strength([0-6], default: 5)",
       set_altref_strength},
@@ -1401,6 +1409,7 @@ ConfigEntry config_entry[] = {
      set_hme_level_2_search_area_in_height_array},
     // --- start: ALTREF_FILTERING_SUPPORT
     {SINGLE_INPUT, ENABLE_ALTREFS, "EnableAltRefs", set_enable_altrefs},
+    {SINGLE_INPUT, MRP_LEVELS2020,"set mrp levels (0: OFF, 1: ON[default])",set_mrp_levels2020 },
     {SINGLE_INPUT, ALTREF_STRENGTH, "AltRefStrength", set_altref_strength},
     {SINGLE_INPUT, ALTREF_NFRAMES, "AltRefNframes", set_altref_n_frames},
     {SINGLE_INPUT, ENABLE_OVERLAYS, "EnableOverlays", set_enable_overlays},
@@ -1598,6 +1607,7 @@ void eb_config_ctor(EbConfig *config_ptr) {
 
     // --- start: ALTREF_FILTERING_SUPPORT
     config_ptr->enable_altrefs  = EB_TRUE;
+    config_ptr->mrp_level2020 = -1;
     config_ptr->altref_strength = 5;
 #if 1//NOISE_BASED_TF_FRAMES
     config_ptr->altref_nframes = 13;

@@ -478,6 +478,7 @@ typedef struct EbConfig {
      * ALT-REF related Parameters
      ****************************************/
     EbBool  enable_altrefs;
+    uint8_t mrp_level2020;
     uint8_t altref_strength;
     uint8_t altref_nframes;
     EbBool  enable_overlays;

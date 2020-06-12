@@ -6380,19 +6380,26 @@ void* picture_decision_kernel(void *input_ptr)
 #if UPGRADE_M6_M7_M8
                                 if (pcs_ptr->sc_content_detected) {
 #if NEW_MRP_SETTINGS
-                                    if (MRS_MODE) {
-                                        pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 3);
-                                        pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 3);
-                                    }
-                                    else if (MR_MODE) {
-                                        pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 3);
-                                        pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
-                                    }
-                                    else if (pcs_ptr->enc_mode <= ENC_M5) {
-                                        pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 2);
-                                        pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
+                                    if (scs_ptr->static_config.mrp_level2020){
+                                        if (MRS_MODE) {
+                                            pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 3);
+                                            pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 3);
+                                        }
+                                        else if (MR_MODE) {
+                                            pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 3);
+                                            pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
+                                        }
+                                        else if (pcs_ptr->enc_mode <= ENC_M5) {
+                                            pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 2);
+                                            pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
+                                        }
+                                        else {
+                                            pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 1);
+                                            pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 1);
+                                        }
                                     }
                                     else {
+                                        printf("mrp_levels %d", scs_ptr->static_config.mrp_level2020);
                                         pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 1);
                                         pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 1);
                                     }
@@ -6457,46 +6464,54 @@ void* picture_decision_kernel(void *input_ptr)
                                 else {
 #if MRP_ADOPTIONS
 #if PRESET_SHIFITNG
-                                    if (pcs_ptr->enc_mode <= ENC_M4) {
+                                    if (scs_ptr->static_config.mrp_level2020) {
+                                        if (pcs_ptr->enc_mode <= ENC_M4) {
 #else
-                                    if (pcs_ptr->enc_mode <= ENC_M6) {
+                                        if (pcs_ptr->enc_mode <= ENC_M6) {
 #endif
 #else
-                                    if (pcs_ptr->enc_mode <= ENC_M5) {
+                                        if (pcs_ptr->enc_mode <= ENC_M5) {
 #endif
-                                        pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 4);
-                                        pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 3);
-                                    }
+                                            pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 4);
+                                            pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 3);
+                                        }
 #if APR25_12AM_ADOPTIONS
 #if NEW_MRP_SETTINGS
-                                    else if (pcs_ptr->enc_mode <= ENC_M6) {
-                                        pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 2);
-                                        pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
+                                        else if (pcs_ptr->enc_mode <= ENC_M6) {
+                                            pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 2);
+                                            pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
 #else
 #if PRESET_SHIFITNG
-                                    else if (pcs_ptr->enc_mode <= ENC_M5) {
+                                        else if (pcs_ptr->enc_mode <= ENC_M5) {
 #else
-                                    else if (pcs_ptr->enc_mode <= ENC_M7) {
+                                        else if (pcs_ptr->enc_mode <= ENC_M7) {
 #endif
 #if MAY19_ADOPTIONS
-                                        pcs_ptr->ref_list0_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list0_count, 4) : MIN(pcs_ptr->ref_list0_count, 2);
-                                        pcs_ptr->ref_list1_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list1_count, 3) : MIN(pcs_ptr->ref_list1_count, 1);
+                                            pcs_ptr->ref_list0_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list0_count, 4) : MIN(pcs_ptr->ref_list0_count, 2);
+                                            pcs_ptr->ref_list1_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list1_count, 3) : MIN(pcs_ptr->ref_list1_count, 1);
 #else
-                                        pcs_ptr->ref_list0_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list0_count, 4) : MIN(pcs_ptr->ref_list0_count, 1);
-                                        pcs_ptr->ref_list1_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list1_count, 3) : MIN(pcs_ptr->ref_list1_count, 1);
+                                            pcs_ptr->ref_list0_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list0_count, 4) : MIN(pcs_ptr->ref_list0_count, 1);
+                                            pcs_ptr->ref_list1_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list1_count, 3) : MIN(pcs_ptr->ref_list1_count, 1);
 #endif
 #endif
-                                    }
+                                        }
 #endif
-                                    else {
+                                        else {
 #if APR25_7PM_ADOPTIONS
-                                        pcs_ptr->ref_list0_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list0_count, 2) : MIN(pcs_ptr->ref_list0_count, 1);
-                                        pcs_ptr->ref_list1_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list1_count, 2) : MIN(pcs_ptr->ref_list1_count, 1);
+                                            pcs_ptr->ref_list0_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list0_count, 2) : MIN(pcs_ptr->ref_list0_count, 1);
+                                            pcs_ptr->ref_list1_count_try = pcs_ptr->is_used_as_reference_flag ? MIN(pcs_ptr->ref_list1_count, 2) : MIN(pcs_ptr->ref_list1_count, 1);
 #else
+                                            pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 1);
+                                            pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 1);
+#endif
+                                        }
+                                    }
+                                    else {
+                                        printf("mrp_levels %d", scs_ptr->static_config.mrp_level2020);
                                         pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 1);
                                         pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 1);
-#endif
                                     }
+
                                 }
 #if SHUT_FEATURE_INTERACTIONS
                                 pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 4);

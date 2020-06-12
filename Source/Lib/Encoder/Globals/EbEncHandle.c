@@ -2442,6 +2442,7 @@ void copy_api_from_app(
 #endif
 
     scs_ptr->static_config.enable_altrefs = config_struct->enable_altrefs;
+    scs_ptr->static_config.mrp_level2020 = config_struct->mrp_level2020;
     scs_ptr->static_config.altref_strength = config_struct->altref_strength;
     scs_ptr->static_config.altref_nframes = config_struct->altref_nframes;
     scs_ptr->static_config.enable_overlays = config_struct->enable_overlays;
