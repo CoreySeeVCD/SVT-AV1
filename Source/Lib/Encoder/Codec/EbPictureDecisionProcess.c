@@ -6394,6 +6394,7 @@ void* picture_decision_kernel(void *input_ptr)
                                             pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
                                         }
                                         else {
+                                            printf("mrp_levels in NSC %d", scs_ptr->static_config.mrp_level2020);
                                             pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 1);
                                             pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 1);
                                         }
@@ -6478,6 +6479,7 @@ void* picture_decision_kernel(void *input_ptr)
 #if APR25_12AM_ADOPTIONS
 #if NEW_MRP_SETTINGS
                                         else if (pcs_ptr->enc_mode <= ENC_M6) {
+                                            printf("mrp_levels in NSC %d", scs_ptr->static_config.mrp_level2020);
                                             pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 2);
                                             pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
 #else
