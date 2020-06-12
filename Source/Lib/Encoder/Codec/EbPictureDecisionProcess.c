@@ -6380,7 +6380,7 @@ void* picture_decision_kernel(void *input_ptr)
 #if UPGRADE_M6_M7_M8
                                 if (pcs_ptr->sc_content_detected) {
 #if NEW_MRP_SETTINGS
-                                    if (scs_ptr->static_config.mrp_level2020){
+                                    if (scs_ptr->static_config.mrp_level2020 != DEFAULT){
                                         if (MRS_MODE) {
                                             pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 3);
                                             pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 3);
@@ -6464,7 +6464,7 @@ void* picture_decision_kernel(void *input_ptr)
                                 else {
 #if MRP_ADOPTIONS
 #if PRESET_SHIFITNG
-                                    if (scs_ptr->static_config.mrp_level2020) {
+                                    if (scs_ptr->static_config.mrp_level2020 != DEFAULT) {
                                         if (pcs_ptr->enc_mode <= ENC_M4) {
 #else
                                         if (pcs_ptr->enc_mode <= ENC_M6) {
