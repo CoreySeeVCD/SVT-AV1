@@ -6380,7 +6380,7 @@ void* picture_decision_kernel(void *input_ptr)
 #if UPGRADE_M6_M7_M8
                                 if (pcs_ptr->sc_content_detected) {
 #if NEW_MRP_SETTINGS
-                                    if (scs_ptr->static_config.mrp_level2020 != DEFAULT){
+                                    if (scs_ptr->static_config.mrp_level2020 == DEFAULT){
                                         if (MRS_MODE) {
                                             pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 3);
                                             pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 3);
@@ -6394,13 +6394,13 @@ void* picture_decision_kernel(void *input_ptr)
                                             pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
                                         }
                                         else {
-                                            printf("mrp_levels in NSC %d", scs_ptr->static_config.mrp_level2020);
+                                            printf("mrp_levels in NSC default %d \n", scs_ptr->static_config.mrp_level2020);
                                             pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 1);
                                             pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 1);
                                         }
                                     }
                                     else {
-                                        printf("mrp_levels in SC %d", scs_ptr->static_config.mrp_level2020);
+                                        printf("mrp_levels in SC non-default %d \n", scs_ptr->static_config.mrp_level2020);
                                         pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 1);
                                         pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 1);
                                     }
@@ -6465,7 +6465,7 @@ void* picture_decision_kernel(void *input_ptr)
                                 else {
 #if MRP_ADOPTIONS
 #if PRESET_SHIFITNG
-                                    if (scs_ptr->static_config.mrp_level2020 != DEFAULT) {
+                                    if (scs_ptr->static_config.mrp_level2020 == DEFAULT) {
                                         if (pcs_ptr->enc_mode <= ENC_M4) {
 #else
                                         if (pcs_ptr->enc_mode <= ENC_M6) {
@@ -6479,7 +6479,7 @@ void* picture_decision_kernel(void *input_ptr)
 #if APR25_12AM_ADOPTIONS
 #if NEW_MRP_SETTINGS
                                         else if (pcs_ptr->enc_mode <= ENC_M6) {
-                                            printf("mrp_levels in NSC %d", scs_ptr->static_config.mrp_level2020);
+                                            printf("mrp_levels in NSC default %d \n", scs_ptr->static_config.mrp_level2020);
                                             pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 2);
                                             pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 2);
 #else
@@ -6509,7 +6509,7 @@ void* picture_decision_kernel(void *input_ptr)
                                         }
                                     }
                                     else {
-                                        printf("mrp_levels in NSC %d", scs_ptr->static_config.mrp_level2020);
+                                        printf("mrp_levels in NSC non-default %d \n", scs_ptr->static_config.mrp_level2020);
                                         pcs_ptr->ref_list0_count_try = MIN(pcs_ptr->ref_list0_count, 1);
                                         pcs_ptr->ref_list1_count_try = MIN(pcs_ptr->ref_list1_count, 1);
                                     }
