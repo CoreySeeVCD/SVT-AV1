@@ -3230,6 +3230,7 @@ EbErrorType eb_svt_enc_init_parameter(
 
     // Alt-Ref default values
     config_ptr->enable_altrefs = EB_TRUE;
+    config_ptr->mrp_level2020 = -1;
 #if NOISE_BASED_TF_FRAMES
     config_ptr->altref_nframes = ALTREF_MAX_NFRAMES;
 #else
